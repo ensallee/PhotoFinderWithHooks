@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import SearchBar from "./SearchBar";
+import PhotoList from "./PhotoList";
+import "./App.css";
 
-function App() {
+const API_KEY = "YOUR KEY HERE";
+
+export default function App() {
+  const [term, setTerm] = useState("coding");
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    fetchPhotos(term);
+  }, [term]);
+
+  const fetchPhotos = term => {
+    fetch(
+      `https://api.unsplash.com/search/photos?page=1&query=${term}&client_id=${API_KEY}`
+    )
+      .then(resp => {
+        return resp.json();
+      })
+      .then(data => {
+        setPhotos(data.results);
+      });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SearchBar
+        changeSearchTermState={e =>
+          e.target.value === "" ? setTerm("coding") : setTerm(e.target.value)
+        }
+        value={term}
+      />
+      <PhotoList photos={photos} />
     </div>
   );
 }
-
-export default App;
