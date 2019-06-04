@@ -2,10 +2,9 @@ import React from "react";
 
 const PhotoListItem = props => {
   return (
-    <div className="photoListItem">
-      <div className="media">
-        <img src={props.url} />
-      </div>
+    <div className="imageContainer">
+      <img className="image" src={props.url} />
+      <img className="heart" src="https://icon.now.sh/heart/d3d3d3" />
     </div>
   );
 };
