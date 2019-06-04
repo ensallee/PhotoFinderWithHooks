@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import FavoritesContext from "./context";
 
 const PhotoListItem = props => {
+  const { state, dispatch } = useContext(FavoritesContext);
   return (
     <div className="imageContainer">
       <img className="image" src={props.url} />

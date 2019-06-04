@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 import SearchBar from "./SearchBar";
 import PhotoList from "./PhotoList";
+import FavoritesContext from "./context";
+import favoritesReducer from "./reducer";
 import "./App.css";
 
 const API_KEY = "YOUR KEY HERE";
 
 export default function App() {
+  const initialState = useContext(FavoritesContext);
+  const [state, dispatch] = useReducer(favoritesReducer, initialState);
   const [term, setTerm] = useState("coding");
   const [photos, setPhotos] = useState([]);
 
