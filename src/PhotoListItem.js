@@ -21,7 +21,7 @@ const PhotoListItem = props => {
       <img className="image" src={url} alt={url} />
       <img
         className="heart"
-        onClick={() => dispatch({ type: "ADD_FAVORITE", payload: imageObj })}
+        onClick={() => dispatch({ type: "TOGGLE_FAVORITE", payload: imageObj })}
         src={
           isFavorite
             ? "https://icon.now.sh/heart/ff0000"

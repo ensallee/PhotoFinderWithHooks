@@ -5,7 +5,7 @@ import FavoritesContext from "./context";
 import favoritesReducer from "./reducer";
 import "./App.css";
 
-const API_KEY = "";
+const API_KEY = "YOUR KEY HERE";
 
 export default function App() {
   const initialState = useContext(FavoritesContext);
