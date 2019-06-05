@@ -5,7 +5,7 @@ import FavoritesContext from "./context";
 import favoritesReducer from "./reducer";
 import "./App.css";
 
-const API_KEY = "YOUR KEY HERE";
+const API_KEY = "";
 
 export default function App() {
   const initialState = useContext(FavoritesContext);
@@ -29,7 +29,7 @@ export default function App() {
       });
   };
   return (
-    <div>
+    <FavoritesContext.Provider value={{ state, dispatch }}>
       <SearchBar
         changeSearchTermState={e =>
           e.target.value === "" ? setTerm("coding") : setTerm(e.target.value)
@@ -37,6 +37,6 @@ export default function App() {
         value={term}
       />
       <PhotoList photos={photos} />
-    </div>
+    </FavoritesContext.Provider>
   );
 }
