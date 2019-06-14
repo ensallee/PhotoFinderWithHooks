@@ -1,6 +1,5 @@
 import React from "react";
 import PhotoListItem from "./PhotoListItem";
-import UUID from "uuid";
 
 export default function PhotoList(props) {
   if (props.photos === []) {
@@ -10,7 +9,7 @@ export default function PhotoList(props) {
   const photoItems =
     props.photos &&
     props.photos.map(pic => {
-      return <PhotoListItem key={UUID()} url={pic.urls.small} />;
+      return <PhotoListItem key={pic.id} url={pic.urls.small} id={pic.id} />;
     });
 
   return <div className="photoList">{photoItems}</div>;

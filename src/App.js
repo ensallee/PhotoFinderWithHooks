@@ -1,10 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 import SearchBar from "./SearchBar";
 import PhotoList from "./PhotoList";
-import env from "./.env";
+import FavoritesContext from "./context";
+import favoritesReducer from "./reducer";
+import env from "./.env.js";
 import "./App.css";
 
 export default function App() {
+  const initialState = useContext(FavoritesContext);
+  const [state, dispatch] = useReducer(favoritesReducer, initialState);
+
   const [term, setTerm] = useState("coding");
   const [photos, setPhotos] = useState([]);
 
@@ -25,8 +30,9 @@ export default function App() {
         setPhotos(data.results);
       });
   };
+
   return (
-    <Fragment>
+    <FavoritesContext.Provider value={{ state, dispatch }}>
       <SearchBar
         changeSearchTermState={e =>
           e.target.value === "" ? setTerm("coding") : setTerm(e.target.value)
@@ -34,6 +40,6 @@ export default function App() {
         value={term}
       />
       <PhotoList photos={photos} />
-    </Fragment>
+    </FavoritesContext.Provider>
   );
 }
