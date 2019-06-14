@@ -3,13 +3,13 @@ import SearchBar from "./SearchBar";
 import PhotoList from "./PhotoList";
 import FavoritesContext from "./context";
 import favoritesReducer from "./reducer";
+import env from "./.env.js";
 import "./App.css";
-
-const API_KEY = "YOUR KEY HERE";
 
 export default function App() {
   const initialState = useContext(FavoritesContext);
   const [state, dispatch] = useReducer(favoritesReducer, initialState);
+
   const [term, setTerm] = useState("coding");
   const [photos, setPhotos] = useState([]);
 
@@ -19,7 +19,9 @@ export default function App() {
 
   const fetchPhotos = term => {
     fetch(
-      `https://api.unsplash.com/search/photos?page=1&query=${term}&client_id=${API_KEY}`
+      `https://api.unsplash.com/search/photos?page=1&query=${term}&client_id=${
+        env.API_KEY
+      }`
     )
       .then(resp => {
         return resp.json();
@@ -28,6 +30,7 @@ export default function App() {
         setPhotos(data.results);
       });
   };
+
   return (
     <FavoritesContext.Provider value={{ state, dispatch }}>
       <SearchBar
