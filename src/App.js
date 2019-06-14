@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import PhotoList from "./PhotoList";
+import env from "./.env";
 import "./App.css";
-
-const API_KEY = "YOUR KEY HERE";
 
 export default function App() {
   const [term, setTerm] = useState("coding");
@@ -15,7 +14,9 @@ export default function App() {
 
   const fetchPhotos = term => {
     fetch(
-      `https://api.unsplash.com/search/photos?page=1&query=${term}&client_id=${API_KEY}`
+      `https://api.unsplash.com/search/photos?page=1&query=${term}&client_id=${
+        env.API_KEY
+      }`
     )
       .then(resp => {
         return resp.json();
@@ -25,7 +26,7 @@ export default function App() {
       });
   };
   return (
-    <div>
+    <Fragment>
       <SearchBar
         changeSearchTermState={e =>
           e.target.value === "" ? setTerm("coding") : setTerm(e.target.value)
@@ -33,6 +34,6 @@ export default function App() {
         value={term}
       />
       <PhotoList photos={photos} />
-    </div>
+    </Fragment>
   );
 }
